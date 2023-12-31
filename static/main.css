@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+
+*{
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.25
+}
+
+code{
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+table, td, th {
+    line-height: 1.5;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+ 
+}
+
+.mainContents {
+    max-width: 50rem; 
+    margin: 0 auto; 
+}
+
+nav {
+    font-size: 1.25rem;
+    background-color: #ddd;
+    box-shadow: 0px 0px 5px gray;
+    margin-bottom: 3rem;
+    height: 3rem;
+    display: flex;         
+    align-items: center;  
+    justify-content: center;
+}
+
+nav header {
+    display: flex;             
+    justify-content: space-between; 
+    width: 100%;    
+    max-width: 50rem;           
+}
+
+nav a{
+    color: #444;
+    font-weight: normal;
+    text-decoration: none;
+    /* 0.5rem gap from each side will result in 1rem gap between two links*/
+    margin: 0 0.5rem;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav a:active {
+    color: black;
+}
+
+.navtitle {
+    font-weight: bold;
+    color: black;
+}
+
+h1 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+h4 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+form {
+    font-size: 1.25rem; 
+}
+
+form input[type="text"],
+form input[type="password"] {
+    font-size: 1.25rem; 
+}
+
+.loginButton {
+    font-size: 1.25rem;
+}
+
+.actioncardIndex {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #204a87;
+    background-color: #b1c3de;
+
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+.actioncardProfile {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #204a87;
+    background-color: #b1c3de;
+
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    position: relative;
+    height: 2.5rem;
+}
+
+.actioncardIndex a {
+    position: absolute;
+    top: 3.3rem;
+    right: 0;
+    padding-right: 1rem;
+}
+
+.actioncardProfile a{
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    padding-right: 1rem;
+}
+
+p, ul, table, form, button {
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.assignmentweight, .assignmentgrade {
+    text-align: right;
+}
+
+.loginRow {
+    margin-bottom: 1rem;
+}
+
+.loginButton {
+    width: 50%;
+    margin-left: 25%;
+}
+
+input[type="text"], input[type="password"] {
+    width: 50%;
+    float: right; 
+}
+
+button[title="Click to submit"] {
+    margin-right: 1rem;
+    width: auto;
+}
+
+input [type="number"] {
+    width: auto;
+}
+
+output {
+    color: red;
+}
+
+th.sortable { cursor: pointer; }
+
+th.sort-asc::after { content: " \25b2"; }
+
+th.sort-desc::after { content: " \25bc"; }

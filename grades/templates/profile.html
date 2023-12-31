@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="icon" href="../static/favicon.ico">
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+
+<body>
+  {% include 'header.html' %}
+
+  <div class="mainContents">
+    <h1>Your grades</h1>
+
+    <div class="actioncardProfile">
+      <p>
+        {% if user.is_authenticated %}
+        <span>Currently logged in as {{ request.user.username }}.</span>
+        <a href="{% url 'logout' %}" role="button" title="Click to log out">Log out</a>
+        {% else %}
+        <span>Currently logged in as AnonymousUser</span>
+        <a href="{% url 'login' %}" role="button" title="Click to log in">Log in</a>
+        {% endif %}
+      </p>
+    </div>
+
+    {% block content %}
+    {% if user.is_authenticated and not user.is_superuser and not is_ta %}
+    <table id="gradesTable">
+      <thead>
+        <tr>
+          <th class="sortable">Assignment</th>
+          <th class="sortable">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for assignment_info in studentAssignments %}
+        <tr data-index="{{ forloop.counter }}" data-weight="{{ assignment_info.assignment.weight }}">
+          <td>{{ assignment_info.assignment.title }}</td>
+          <td data-value="{% if assignment_info.percentage %}{{ assignment_info.percentage }}{% else %}0{% endif %}">
+            {% if assignment_info.percentage %}{{ assignment_info.percentage }}%
+            {% else %}{{ assignment_info.status }}{% endif %}</td>
+        </tr>
+        {% endfor %}
+        <tr class="no-sort">
+          <td><b>Final grade</b></td>
+          <td class="finalGrade"><b>{{ current_grade }}%</b></td>
+      </tr>
+      </tbody>
+    </table>
+
+
+    {% else %}
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable">Assignment</th>
+          <th class="sortable">Total Assigned</th>
+          <th class="sortable">Graded</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in assignmentGrading %}
+        <tr data-index="{{ forloop.counter }}">
+          <td>{{ data.assignment.title }}</td>
+          <td data-value="{{ data.assignedStudents }}">{{ data.assignedStudents }}</td>
+          <td data-value="{{ data.graded }}">{{ data.graded }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    {% endblock %}
+  </div>
+
+  <script type="module">
+    import { make_table_sortable, make_grade_hypothesized } from "/static/main.js";
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      const table = $('table').first();
+      make_table_sortable($(table));
+  
+      const $gradesTable = $('#gradesTable'); 
+      if ($gradesTable.length) {
+        make_grade_hypothesized($gradesTable);
+      }
+    });
+  </script>
+  
+</body>
+
+</html>
+
+

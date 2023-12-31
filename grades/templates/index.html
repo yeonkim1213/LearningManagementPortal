@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ assignment.title }}</title>
+  <link rel="icon" href="../static/favicon.ico">
+  <link rel="stylesheet" href=/static/main.css>
+</head>
+
+<body>
+  {% include 'header.html' %}
+
+  <div class="mainContents">
+    <h1>{{ assignment.title }}</h1>
+    Due {{ assignment.deadline|date:"F d" }}, total of {{ assignment.points }} points <br>
+
+    {% if is_ta %}
+    <div class="actioncardIndex">
+      <p>Currently {{ submissionsTotal }}/{{ totalStudents }} submissions</p>
+      <span>{{ submissionsAssigned }} submission{{ submissionsAssigned|pluralize }} assigned to you</span>
+      <a href="{% url 'submissions' assignment_id=assignment.id %}" title="Go to submissions">Grade</a>
+    </div>
+    {% endif %}
+
+    {% if is_student %}
+      <div class="actioncardIndex">
+        {% if submission %}
+          <p>Your submission: 
+            
+          </p>
+          {% if submission.score %}
+            <p>Your grade: {{ submission.score }}</p>
+          {% endif %}
+        {% else %}
+          <p>{{ submissionStatus }}</p>
+        {% endif %}
+      </div>
+
+      {% if assignment.deadline > current_time %}
+        <form id="submissionForm" action="{% url 'submit' assignment_id=assignment.id %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="file" name="file" required>
+          <button type="submit">Submit</button>
+        </form>
+      {% endif %}
+     
+    {% endif %}
+
+    <main>
+      <h4>Description</h4>
+      {{ assignment.description|safe }}
+    </main>
+
+  </div>
+
+  <script type="module">
+    import { make_form_async } from "/static/main.js";
+
+    $(document).ready(function() {
+      const $submissionForm = $('#submissionForm');
+      if ($submissionForm.length) {
+        make_form_async($submissionForm);
+      }
+    });
+  </script>
+
+</body>
+
+</html>

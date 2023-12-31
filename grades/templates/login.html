@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="icon" href="../static/favicon.ico">
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  {% include 'header.html'%}
+  <div class="mainContents">
+    <h1>Log in</h1>
+    <form method="post" action="/profile/login/">
+      {% csrf_token %}
+      <div>
+        <div class=loginRow>
+          <label>Username:</label>
+          <input type="text" name="username" autofocus required>
+        </div>
+        <div class=loginRow>
+          <label>Password:</label>
+          <input type="password" name="password" required>
+        </div>
+      </div>
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="loginButton">Log in</button>
+    </form>
+
+    {% if error %}
+      <output>{{ error }}</output>
+    {% endif %}
+
+
+  </div>
+  
+</body>
+
+</html>

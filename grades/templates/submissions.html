@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submissions</title>
+  <link rel="icon" href="../static/favicon.ico">
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  {% include 'header.html' %}
+
+  <div class="mainContents">
+    {% block content %}
+    <form action="{% url 'grade' assignment.id %}" method="post">
+      {% csrf_token %}
+
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Submission</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for submission in submissions %}
+          <tr>
+            <td>{{ submission.author.username }}</td>
+            
+            <td><input type="text" name="grade-{{ submission.id }}" value="{{ submission.score }}"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+
+    <span>
+      <button title="Click to submit">Submit</button>
+      <a href="{% url 'index'  assignment.id %}" role="button" title="Click to go back to the assignment">Back to
+        assignment</a>
+    </span>
+  </div>
+  {% endblock %}
+
+</body>
+
+</html>

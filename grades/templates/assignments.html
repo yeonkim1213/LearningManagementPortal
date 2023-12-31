@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Assignments</title>
+  <link rel="icon" href="../static/favicon.ico">
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  {% include 'header.html' %}
+
+
+  <div class="mainContents">
+    <h1>All assignments</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable">Assignment</th>
+          <th class="sortable">Due date</th>
+          <th class="sortable assignmentweight">Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for assignment in assignments %}
+        <tr data-index="{{ forloop.counter }}">
+          <td data-value="{{ assignment.title }}">
+            <a href="{% url 'index' assignment_id=assignment.id %}" title="View Assignment">{{ assignment.title }}</a>
+          </td>
+          <td data-value="{{ assignment.deadline|date:'U' }}">{{ assignment.deadline|date:"M d" }}</td>
+          <td class="assignmentweight" data-value="{{ assignment.weight }}">{{ assignment.weight }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+
+  <script type="module">
+    import { make_table_sortable } from "/static/main.js";
+    document.addEventListener('DOMContentLoaded', () => {
+      const table = $('table').first();
+      make_table_sortable($(table));
+    });
+  </script>
+
+</body>
+
+</html>
+
+
